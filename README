@@ -1,0 +1,13 @@
+# create the following sql statements before run the application
+# need to create the user and gran permission on the data base;
+CREATE DATABASE IF NOT EXISTS dwt;
+GRANT ALL PRIVILEGES ON dwt.* TO dwtuser@localhost IDENTIFIED BY 'dwtuser123';
+FLUSH PRIVILEGES;
+mysql -u dwtuser -p dwt123 dwt;
+---- TO RESET  THE TABLES AUTO INCREMENT VALUE USE BELOW --
+ALTER TABLE COMMENT AUTO_INCREMENT=1000;
+ALTER TABLE WORKREQUEST AUTO_INCREMENT=1000;
+ALTER TABLE BRANCH AUTO_INCREMENT=1000;
+
+----CONSTRAINT ------------------------------------------------------------
+ALTER TABLE BRANCH ADD CONSTRAINT UPF_BRANCHID UNIQUE(UPFSERVICE_BRANCH_ID);

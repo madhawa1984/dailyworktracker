@@ -1,0 +1,14 @@
+application:
+            name: DailyWorkTracker
+            execution:
+                 profile: prd
+            datasource:
+                       dburl: localhost
+                       port : 3306
+                       databasename: dwt
+                       connectionstring: jdbc:mysql://${application.datasource.dburl}:${application.datasource.port}/dwt
+                       uname : dwtuser
+                       pwd : dwtuser123
+                       hibernate.dialect : org.hibernate.dialect.MySQL5Dialect
+                       hibernate.show_sql : true
+                       hibernate.hbm2ddl.aut : create-drop
