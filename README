@@ -11,3 +11,9 @@ ALTER TABLE BRANCH AUTO_INCREMENT=1000;
 
 ----CONSTRAINT ------------------------------------------------------------
 ALTER TABLE BRANCH ADD CONSTRAINT UPF_BRANCHID UNIQUE(UPFSERVICE_BRANCH_ID);
+
+
+How to run this application on IDE:-
+pass followiing argumets as program arguments of the DailyworktrackerApplication class
+--spring.profiles.active=dev
+
