@@ -8,57 +8,27 @@ import java.io.Serializable;
 /**
  * Created by madhawa on 11/30/16.
  */
-// this should extends from Hiarrchy
-/*@Entity
-@Table(name="REQUESTOR_DETAIL")*/
+
 @Embeddable
 public class RequestorDetail implements Serializable {
-   /* @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long requestorDetailID;*/
-    @Column(name="UPFSERRVICE_ID")
-    private String upfServiceId;
-    @Column(name="FIRST_NAME")
+
+    @Column(name="REQUESTOR_UPM_ID")
+    private String requestorUpmServiceId;
+    @Column(name="REQUESTOR_FIRST_NAME")
     private String firstName;
-    @Column(name="LAST_NAME")
+    @Column(name="REQUESTOR_LAST_NAME")
     private String lastName;
-    @Column(name="DESIGNATION")
+    @Column(name="REQUESTOR_DESIGNATION")
     private String designation;
 
-    /*@Column(name="WORKREQUEST_ID")
-    private String workRequestId;*/
 
-   /* public String getWorkRequestId() {
-        return workRequestId;
+    public String getRequestorUpmServiceId() {
+        return requestorUpmServiceId;
     }
 
-    public void setWorkRequestId(String workRequestId) {
-        this.workRequestId = workRequestId;
-    }*/
-
-    public String getUpFServiceId() {
-        return upfServiceId;
+    public void setRequestorUpmServiceId(String requestorUpmServiceId) {
+        this.requestorUpmServiceId = requestorUpmServiceId;
     }
-
-    public void setUpFServiceId(String upFServiceId) {
-        this.upfServiceId = upFServiceId;
-    }
-
-    public String getUpFServiceid() {
-        return upfServiceId;
-    }
-
-    public void setUpFServiceid(String upFServiceId) {
-        this.upfServiceId = upFServiceId;
-    }
-
-    /*   public long getRequestorDetailID() {
-        return requestorDetailID;
-    }
-
-    public void setRequestorDetailID(long requestorDetailID) {
-        this.requestorDetailID = requestorDetailID;
-    }*/
 
     public String getFirstName() {
         return firstName;

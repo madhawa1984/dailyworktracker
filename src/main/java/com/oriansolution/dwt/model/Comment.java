@@ -25,7 +25,7 @@ public class Comment implements Serializable {
     @Column(name="COMMENT")
     private String comment;// check how to support lenghty comment// this shoulbe an array List
     @Column(name="COMMENTED_USERID")
-    private long commentedUsedId;
+    private String commentedUsedId;
 
     public WorkRequest getWorkRequest() {
         return workRequest;
@@ -73,11 +73,11 @@ public class Comment implements Serializable {
         this.comment = comment;
     }
 
-    public long getCommentedUsedId() {
+    public String getCommentedUsedId() {
         return commentedUsedId;
     }
 
-    public void setCommentedUsedId(long commentedUsedId) {
+    public void setCommentedUsedId(String commentedUsedId) {
         this.commentedUsedId = commentedUsedId;
     }
 

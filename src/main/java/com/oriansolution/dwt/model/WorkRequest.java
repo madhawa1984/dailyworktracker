@@ -18,12 +18,6 @@ public class WorkRequest implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    /*@GeneratedValue(strategy = GenerationType.SEQUENCE,generator="WORKREQUEST_SEQ")
-    @SequenceGenerator(
-            name="WORKREQUEST_SEQ",
-            sequenceName="WORKREQUEST_SEQ_MYSQL",
-            allocationSize=10
-    )*/
     // need to considere about the custom id generation
     @Column(name = "ID", unique = true, nullable = false)
     private long id;
@@ -31,20 +25,125 @@ public class WorkRequest implements Serializable {
     private String requestID;
     @Column(name = "DELIEVERY_FORMAT")
     private String delieveryFormat;
+    @Column(name = "DELIEVERY_MODE")
+    private String delieveryMode;
     @Column(name = "FREQUENCY")
     private String frequency;
+    @Column(name="ASSIGNED_USER_UPMID")
+    private String assignedUserUPMID;
+    @Column(name="STATUS")
+    private String status;
+    @Column(name="CREATED_DATE")
+    private Date createdDate;
+    @Column(name="DUE_DATE")
+    private Date dueDate;
+    @Column(name="MODIFIED_DATE")
+    private Date modifiedDate;
+    @Column(name="CLOSED_DATE")
+    private Date closedDate;
+    @Column(name="BUSINESS_PURPOSE")
+    private String businessPurpose;
+    @Column(name="REPORT_TITLE")
+    private String reportTitle;
+    @Column(name="INITIATED_DEPARTMENT")
+    private String initiatedDepartment;
+    @Column(name="REQUIRED_COLUMNS")
+    private String requiredColumns;
+    @Column(name="FILTER_CRITERIA")
+    private String filterCritetia;
+    @Column(name="PRIORITY")
+    private String priority;
 
+
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
 
     // comment relationship<onre request is having many comments .comment will have only one request id >
     @OneToMany(cascade=CascadeType.ALL,mappedBy = "workRequest")
     //@JoinTable(name="WORK_REQUEST_COMMENTS",@JoinColumns=@JoinColumn("ID"))
     private List<Comment> listOfComments;
 
+    @OneToMany(cascade=CascadeType.ALL,mappedBy = "workRequest")
+    private List<ContactDetails> listOfContacts;
+
+
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="BRANCH_ID_OF_REQUEST")
+
     private Branch branch;
     @Embedded
     private RequestorDetail requestor;
+
+    public String getRequiredColumns() {
+        return requiredColumns;
+    }
+
+    public void setRequiredColumns(String requiredColumns) {
+        this.requiredColumns = requiredColumns;
+    }
+
+    public String getFilterCritetia() {
+        return filterCritetia;
+    }
+
+    public void setFilterCritetia(String filterCritetia) {
+        this.filterCritetia = filterCritetia;
+    }
+
+
+    public String getReportTitle() {
+        return reportTitle;
+    }
+
+    public void setReportTitle(String reportTitle) {
+        this.reportTitle = reportTitle;
+    }
+
+    public String getBusinessPurpose() {
+        return businessPurpose;
+    }
+
+    public void setBusinessPurpose(String businessPurpose) {
+        this.businessPurpose = businessPurpose;
+    }
+
+    public String getDelieveryMode() {
+        return delieveryMode;
+    }
+
+    public void setDelieveryMode(String delieveryMode) {
+        this.delieveryMode = delieveryMode;
+    }
+
+    public String getInitiatedDepartment() {
+        return initiatedDepartment;
+    }
+
+    public void setInitiatedDepartment(String initiatedDepartment) {
+        this.initiatedDepartment = initiatedDepartment;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getAssignedUserUPMID() {
+        return assignedUserUPMID;
+    }
+
+    public void setAssignedUserUPMID(String assignedUserUPMID) {
+        this.assignedUserUPMID = assignedUserUPMID;
+    }
 
     public Branch getBranch() {
         return branch;
@@ -61,11 +160,6 @@ public class WorkRequest implements Serializable {
     public void setRequestor(RequestorDetail requestor) {
         this.requestor = requestor;
     }
-
-   /* private Date createdDate;
-    private Date dueDate;
-    private Date modifiedDate;
-    private Date closedDate;*/
 
     public List<Comment> getListOfComments() {
         return listOfComments;
@@ -108,7 +202,7 @@ public class WorkRequest implements Serializable {
     }
 
 
-    /*public Date getCreatedDate() {
+    public Date getCreatedDate() {
         return createdDate;
     }
 
@@ -140,13 +234,12 @@ public class WorkRequest implements Serializable {
         this.closedDate = closedDate;
     }
 
-    public ArrayList<Comment> getCommentList() {
-        return commentList;
+    public List<ContactDetails> getListOfContacts() {
+        return listOfContacts;
     }
 
-    public void setCommentList(ArrayList<Comment> commentList) {
-        this.commentList = commentList;
+    public void setListOfContacts(List<ContactDetails> listOfContacts) {
+        this.listOfContacts = listOfContacts;
     }
 
-    private ArrayList<Comment> commentList; // hibernate relationship mappings comes here*/
 }

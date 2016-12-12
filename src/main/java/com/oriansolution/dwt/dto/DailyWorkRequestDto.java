@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.oriansolution.dwt.model.Comment;
+import com.oriansolution.dwt.model.ContactDetails;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,6 +15,29 @@ import java.util.Date;
 // this class should be the json body for the POST of DWT jobs creation
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DailyWorkRequestDto {
+    public String getClosedDate() {
+        return closedDate;
+    }
+
+    public void setClosedDate(String closedDate) {
+        this.closedDate = closedDate;
+    }
+
+    public String getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(String modifiedDate) {
+        this.modifiedDate = modifiedDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public long getId() {
         return id;
@@ -61,14 +85,6 @@ public class DailyWorkRequestDto {
 
     public void setRequestType(String requestType) {
         this.requestType = requestType;
-    }
-
-    public String getDeliveryMode() {
-        return deliveryMode;
-    }
-
-    public void setDeliveryMode(String deliveryMode) {
-        this.deliveryMode = deliveryMode;
     }
 
     public String getRequiredColumns() {
@@ -119,20 +135,20 @@ public class DailyWorkRequestDto {
         this.businessPurpose = businessPurpose;
     }
 
-    public String getAssignedDepartment() {
-        return assignedDepartment;
+    public String getInitiatedDepartment() {
+        return initiatedDepartment;
     }
 
-    public void setAssignedDepartment(String assignedDepartment) {
-        this.assignedDepartment = assignedDepartment;
+    public void setInitiatedDepartment(String initiatedDepartment) {
+        this.initiatedDepartment = initiatedDepartment;
     }
 
-    public String getAddignedUser() {
-        return addignedUser;
+    public String getAddignedUserUPMID() {
+        return addignedUserUPMID;
     }
 
-    public void setAddignedUser(String addignedUser) {
-        this.addignedUser = addignedUser;
+    public void setAddignedUserUPMID(String addignedUserUPMID) {
+        this.addignedUserUPMID = addignedUserUPMID;
     }
 
     public String getEmployeeId() {
@@ -159,11 +175,11 @@ public class DailyWorkRequestDto {
         this.designation = designation;
     }
 
-    public ArrayList<String> getContactDetails() {
+    public ArrayList<ContactDetailsDto> getContactDetails() {
         return contactDetails;
     }
 
-    public void setContactDetails(ArrayList<String> contactDetails) {
+    public void setContactDetails(ArrayList<ContactDetailsDto> contactDetails) {
         this.contactDetails = contactDetails;
     }
     public ArrayList<CommentsDto> getComments() {
@@ -181,9 +197,24 @@ public class DailyWorkRequestDto {
         this.branch = branch;
     }
 
+    public String getDelieveryMode() {
+        return delieveryMode;
+    }
+
+    public void setDelieveryMode(String delieveryMode) {
+        this.delieveryMode = delieveryMode;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     private long id;
     @JsonProperty("requested_date")
-    //@JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd HH:mm:ss")
     private String requestedDate;
     @JsonProperty("previous_request")
     private String previousRequestId;
@@ -193,8 +224,8 @@ public class DailyWorkRequestDto {
     private String frequency;
     @JsonProperty("request_type")
     private String requestType;
-    @JsonProperty("delivery_mode")
-    private String deliveryMode;
+    @JsonProperty("delievery_mode")
+    private String delieveryMode;
     @JsonProperty("required_columns")
     private String requiredColumns;// text asre how to handle ,larger text velus into string
     @JsonProperty("filtering_criteria")
@@ -207,21 +238,26 @@ public class DailyWorkRequestDto {
     @JsonProperty("business_purpose")
     private String businessPurpose;
     private ArrayList<CommentsDto> comments; // necessary
-    @JsonProperty("Assigned_Department")
-    private String assignedDepartment;
-    @JsonProperty("Assigned_User")
-    private String addignedUser;
-
-
+    @JsonProperty("initiated_department")
+    private String initiatedDepartment;
+    @JsonProperty("assigned_user_upmid")
+    private String addignedUserUPMID;
+    private String status;
     // employee spacific data .may be able to put into another dto with employee
     @JsonProperty("employee_id")
-    private String employeeId;
+    private String employeeId; // this will put to the upfmservice id
     private String name;
     private String designation;
     //private String branch;
     private BranchDto branch;
     @JsonProperty("contact_details")
-    private ArrayList<String> contactDetails;
+    private ArrayList<ContactDetailsDto> contactDetails;
+    private String closedDate;
+    private String modifiedDate;
+    private String lastName;
+
+
+
     // employee data
 
  }

@@ -7,4 +7,5 @@ import com.oriansolution.dwt.model.WorkRequest;
  */
 public interface DailyWorkRequestDao {
     public WorkRequest createRequest(WorkRequest request);
+    public WorkRequest getRequestById(long requestId) throws Exception;
 }

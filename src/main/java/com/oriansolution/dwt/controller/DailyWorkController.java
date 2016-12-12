@@ -15,52 +15,27 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class DailyWorkController {
 
-    /*@Autowired
-    private DailyWorkRequestDao requestDao;*/
     @Autowired
     @Qualifier("DailyworkServiceBean")
     private DailyWorkService dailworkServiceObj;
-    @Autowired
-    private AppStatus appStatus;
 
-    // this search needs to be done on the anyfiled.single text input filed(googles)
     @RequestMapping(value="/dailyWork/{requestId}",method=RequestMethod.GET)
     public @ResponseBody
-    DailyWorkRequestDto read(@RequestBody DailyWorkRequestDto request) {
+    DailyWorkRequestDto read(@PathVariable long requestId) throws Exception{
 
-        // check here do we need to return the DTO object itself
-        return null;// replace this value
-
-    }
-
-    @RequestMapping(value="/dailyWorkTest",method=RequestMethod.POST)
-    public @ResponseBody DailyWorkRequestDto testPost() {
-        // check here do we need to return the DTO object itself
-        DailyWorkRequestDto testObj= new DailyWorkRequestDto();
-        testObj.setFrequency("Weekly");
-        testObj.setRequestedDate(new java.util.Date().toString());
-        testObj.setDelieveryFormat("Excel");
-        testObj.setEmployeeId("m0001");
-        return dailworkServiceObj.publishRequest(testObj);
-
-
+        DailyWorkRequestDto workRequestDto = dailworkServiceObj.getRequest(requestId);
+        return workRequestDto;
 
     }
 
     @RequestMapping(value="/request",method=RequestMethod.POST)
-    public @ResponseBody DailyWorkRequestDto create(@RequestBody DailyWorkRequestDto request) {
-
-        for(String contact:request.getContactDetails()) {
-            System.out.println("contatcs"+contact);
-        }
-        // iterate over comments list
-        for(CommentsDto comntObj:request.getComments()) {
-            System.out.println("comments"+comntObj.getCreatedDate()+" "+comntObj.getComment());
-        }
+    public @ResponseBody DailyWorkRequestDto create(@RequestBody DailyWorkRequestDto request) throws Exception {
 
         DailyWorkRequestDto savedResult = dailworkServiceObj.publishRequest(request);
-
         return savedResult;
 
     }
+
+
+
 }

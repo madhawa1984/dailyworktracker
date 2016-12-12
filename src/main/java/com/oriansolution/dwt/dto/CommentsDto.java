@@ -11,6 +11,24 @@ public class CommentsDto {
     private String createdDate;
     private String modifieddDate;
     private String comment;// check how to support lenghty comment// this shoulbe an array List
+    private String workRequestId; // attributes from relationships
+    private String commentedUserUPMID;
+
+    public String getCommentedUserUPMID() {
+        return commentedUserUPMID;
+    }
+
+    public void setCommentedUserUPMID(String commentedUserUPMID) {
+        this.commentedUserUPMID = commentedUserUPMID;
+    }
+
+    public String getWorkRequestId() {
+        return workRequestId;
+    }
+
+    public void setWorkRequestId(String workRequestId) {
+        this.workRequestId = workRequestId;
+    }
 
     public String getComment() {
         return comment;

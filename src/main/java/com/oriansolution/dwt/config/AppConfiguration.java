@@ -41,7 +41,7 @@ public class AppConfiguration {
     @Bean(name="sessionFactoryBean")
     public LocalSessionFactoryBean getSessionFactory() {
         LocalSessionFactoryBean sesfac = new LocalSessionFactoryBean();
-        sesfac.setDataSource(getDataSourse());// pass the datasource bean
+        sesfac.setDataSource(getDataSourse());
         sesfac.setPackagesToScan(new String[] { "com.oriansolution.dwt" });
         Properties hibernateProperties = hibernateProperties();
         sesfac.setHibernateProperties(hibernateProperties);
@@ -54,7 +54,6 @@ public class AppConfiguration {
         hibernetProps.setProperty("hibernate.hbm2ddl.auto", datasourceDetails.get("hibernate.hbm2ddl.auto"));
         hibernetProps.setProperty("hibernate.dialect", datasourceDetails.get("hibernate.dialect"));
         hibernetProps.setProperty("hibernate.globally_quoted_identifiers", "true");
-        System.out.println(hibernetProps);
         //x.setProperty("hibernate.current_session_context_class","thread"); // support getCurrentSession
         /*return new Properties() {
             {
@@ -65,9 +64,6 @@ public class AppConfiguration {
         };*/
         return hibernetProps;
     }
-
-    // initialize beans which can have multiple implementations otherwise can use the stereo
-    // type annotations
 
 
 }
