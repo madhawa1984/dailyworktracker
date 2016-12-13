@@ -1,7 +1,9 @@
 package com.oriansolution.dwt.service;
 
 import com.oriansolution.dwt.dto.DailyWorkRequestDto;
+import com.oriansolution.dwt.dto.RequestSummaryDto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,5 +12,6 @@ import java.util.List;
 public interface DailyWorkService {
     public DailyWorkRequestDto publishRequest(DailyWorkRequestDto request) throws Exception;
     public DailyWorkRequestDto getRequest(long requestId) throws Exception;
-    public List<DailyWorkRequestDto> getRequestSummary(long userId);
+    public ArrayList<RequestSummaryDto> getRequestSummary(String upmUserId) throws Exception;
+    public ArrayList<RequestSummaryDto> getRequestSummaryByBranch(String upmBranchId) throws Exception;
 }

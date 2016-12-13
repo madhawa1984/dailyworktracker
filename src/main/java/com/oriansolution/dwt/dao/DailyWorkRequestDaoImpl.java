@@ -1,5 +1,6 @@
 package com.oriansolution.dwt.dao;
 
+import com.oriansolution.dwt.exception.JoBSummaryNotFound;
 import com.oriansolution.dwt.model.Branch;
 import com.oriansolution.dwt.model.WorkRequest;
 import org.hibernate.*;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -68,5 +70,51 @@ public class DailyWorkRequestDaoImpl implements DailyWorkRequestDao {
              return request;
         }
 
+    }
+    public List<WorkRequest> getRequestSummary(String upmUserId) throws Exception {
+        List<WorkRequest> summary = null;
+        Session session = null;
+
+        try {
+            session = this.sessionFactoryBean.openSession();
+            org.hibernate.query.Query query = session.createQuery("from WorkRequest A where  A.requestor.requestorUpmServiceId=:id");
+            query.setParameter("id", upmUserId);
+            summary = query.list();
+            if (summary.isEmpty()) {
+                throw new JoBSummaryNotFound("Job Summary Not Found for the User");
+            }
+
+        }catch(Exception e) {
+            e.printStackTrace();
+            throw new Exception("DWT Error Occured:"+e.getMessage(),e);
+        }
+        finally {
+            if(session!=null) {
+                session.close();
+            }
+
+        }
+
+        return summary;
+    }
+
+    @Override
+    public List<WorkRequest> getRequestSummaryByBranch(String upmBranchId) throws Exception {
+        List<WorkRequest> summaryByBranch = null;
+        Session session = null;
+        try {
+            session = this.sessionFactoryBean.openSession();
+            org.hibernate.query.Query query = session.createQuery("from WorkRequest A where  A.initiatedDepartment=:upmBranchId");
+            query.setParameter("upmBranchId", upmBranchId);
+            summaryByBranch = query.list();
+            if(summaryByBranch.isEmpty()) {
+                throw new JoBSummaryNotFound("Job Summary Not Found for the Given branch");
+            }
+
+        }catch(Exception e) {
+            e.printStackTrace();
+            throw new Exception("DWT Error Occured: "+e.getMessage(),e);
+        }
+        return summaryByBranch;
     }
 }

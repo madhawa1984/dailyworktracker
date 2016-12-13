@@ -8,4 +8,7 @@ public class DwtBaseException extends Exception {
     public DwtBaseException(final String message) {
         super(new StringBuilder().append(GENERIC_ERROR).append(message).toString());
     }
+    public DwtBaseException(final String message,Throwable cause) {
+        super(new StringBuilder().append(GENERIC_ERROR).append(message).toString(),cause);
+    }
 }

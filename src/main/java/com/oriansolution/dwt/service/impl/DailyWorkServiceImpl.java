@@ -2,10 +2,7 @@ package com.oriansolution.dwt.service.impl;
 
 import com.oriansolution.dwt.dao.BranchDao;
 import com.oriansolution.dwt.dao.DailyWorkRequestDao;
-import com.oriansolution.dwt.dto.BranchDto;
-import com.oriansolution.dwt.dto.CommentsDto;
-import com.oriansolution.dwt.dto.ContactDetailsDto;
-import com.oriansolution.dwt.dto.DailyWorkRequestDto;
+import com.oriansolution.dwt.dto.*;
 import com.oriansolution.dwt.exception.JobRequestNotFound;
 import com.oriansolution.dwt.model.*;
 import com.oriansolution.dwt.service.DailyWorkService;
@@ -194,6 +191,7 @@ public class DailyWorkServiceImpl implements DailyWorkService {
             wrkRequestDto.setName(wrkRequest.getRequestor().getFirstName());
             wrkRequestDto.setLastName(wrkRequest.getRequestor().getLastName());
             wrkRequestDto.setDesignation(wrkRequest.getRequestor().getDesignation());
+            wrkRequestDto.setEmployeeId(wrkRequest.getRequestor().getRequestorUpmServiceId());
             wrkRequestDto.setFilteringCriteria(wrkRequest.getFilterCritetia());
             wrkRequestDto.setRequiredColumns(wrkRequest.getRequiredColumns());
             wrkRequestDto.setContactDetails(updateContactDetailsDto(wrkRequest));
@@ -217,8 +215,36 @@ public class DailyWorkServiceImpl implements DailyWorkService {
         return wrkRequestDto;
     }
 
-    @Override
-    public List<DailyWorkRequestDto> getRequestSummary(long userId) {
-        return null;
+    public ArrayList<RequestSummaryDto> generateSummaryDto(List<WorkRequest> summary) throws Exception {
+        ArrayList<RequestSummaryDto> summaryDtoList = new ArrayList<RequestSummaryDto>();
+        RequestSummaryDto summaryDto = new RequestSummaryDto();
+        for(WorkRequest jobReq:summary) {
+            summaryDto.setBusinessPurpose(jobReq.getBusinessPurpose());
+            summaryDto.setDueDate(DateUtil.getDateInGivenFormat(jobReq.getDueDate(),"dd/MM/yyyy").toString());
+            summaryDto.setPriority(jobReq.getPriority());
+            summaryDto.setRequestedBy(jobReq.getRequestor().getFirstName());
+            summaryDto.setRequestedDate(DateUtil.getDateInGivenFormat(jobReq.getCreatedDate(),
+                    "dd/MM/yyyy").toString());
+            summaryDto.setRequestId(Long.toString(jobReq.getId()));
+            summaryDto.setStatus(jobReq.getStatus());
+            summaryDto.setTittle(jobReq.getReportTitle());
+            summaryDtoList.add(summaryDto);
+        }
+        return summaryDtoList;
     }
+
+    @Override
+    public ArrayList<RequestSummaryDto> getRequestSummary(String userId) throws Exception {
+        List<WorkRequest> summary = requestDao.getRequestSummary(userId);
+        return generateSummaryDto(summary);
+
+    }
+
+    @Override
+    public ArrayList<RequestSummaryDto> getRequestSummaryByBranch(String upmBranchId) throws Exception {
+        List<WorkRequest> summary = requestDao.getRequestSummaryByBranch(upmBranchId);
+        return generateSummaryDto(summary);
+    }
+
+
 }
