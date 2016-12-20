@@ -34,7 +34,8 @@ public class DailyWorkRequestDaoImpl implements DailyWorkRequestDao {
                 Hibernate.initialize(request.getListOfContacts());
                 Hibernate.initialize(request.getBranch());
             }
-
+            session.clear();
+            session.close();
         }catch(Exception e) {
             e.printStackTrace();
             throw new Exception("DWT Error Occured:",e);
@@ -49,15 +50,18 @@ public class DailyWorkRequestDaoImpl implements DailyWorkRequestDao {
         return request;
     }
 
-    public WorkRequest createRequest(WorkRequest request) {
+    // public WorkRequest createRequest(WorkRequest request) {
+    public void createRequest(WorkRequest request) {
         Session session = null;
         try {
             session = this.sessionFactoryBean.openSession();
             //session = this.sessionFactoryBean.getCurrentSession();
-            //Transaction tx = session.beginTransaction();
+            session.beginTransaction();
             // session.saveOrUpdate(request);
             session.save(request);
+            session.getTransaction().commit();
             //tx.commit();
+            session.clear();
             session.close();
         }catch(Exception e) {
             e.printStackTrace();
@@ -67,10 +71,34 @@ public class DailyWorkRequestDaoImpl implements DailyWorkRequestDao {
             if(session!=null) {
                 session.close();
             }
-             return request;
+             // return request;
         }
 
     }
+
+    @Override
+    // public WorkRequest updateRequest(WorkRequest request) {
+    public void updateRequest(WorkRequest request) {
+        Session session = null;
+        try {
+            session = this.sessionFactoryBean.openSession();
+            session.beginTransaction();
+            session.saveOrUpdate(request);
+            session.getTransaction().commit();
+            session.clear();
+            session.close();
+        }catch(Exception e) {
+            e.printStackTrace();
+            request = null; // if exception caught
+        }
+        finally {
+            if (session!=null) {
+                session.close();
+            }
+        }
+        // return request;
+    }
+
     public List<WorkRequest> getRequestSummary(String upmUserId) throws Exception {
         List<WorkRequest> summary = null;
         Session session = null;

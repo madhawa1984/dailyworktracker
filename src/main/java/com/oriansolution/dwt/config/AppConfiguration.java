@@ -54,6 +54,8 @@ public class AppConfiguration {
         hibernetProps.setProperty("hibernate.hbm2ddl.auto", datasourceDetails.get("hibernate.hbm2ddl.auto"));
         hibernetProps.setProperty("hibernate.dialect", datasourceDetails.get("hibernate.dialect"));
         hibernetProps.setProperty("hibernate.globally_quoted_identifiers", "true");
+        hibernetProps.setProperty("show_sql","true");
+
         //x.setProperty("hibernate.current_session_context_class","thread"); // support getCurrentSession
         /*return new Properties() {
             {

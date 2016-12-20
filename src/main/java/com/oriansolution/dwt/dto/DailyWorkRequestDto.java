@@ -212,6 +212,18 @@ public class DailyWorkRequestDto {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+    public String getCurrentUserId() {
+        return currentUserId;
+    }
+    public void setCurrentUserId(String currentUserId) {
+        this.currentUserId = currentUserId;
+    }
+    public String getCurrentUserRole() {
+        return currentUserRole;
+    }
+    public void setCurrentUserRole(String currentUserRole) {
+        this.currentUserRole = currentUserRole;
+    }
 
     private long id;
     @JsonProperty("requested_date")
@@ -245,7 +257,13 @@ public class DailyWorkRequestDto {
     private String status;
     // employee spacific data .may be able to put into another dto with employee
     @JsonProperty("employee_id")
-    private String employeeId; // this will put to the upfmservice id
+    private String employeeId; // this will put to the upfmservice id.// when doing a request this will be the requestor id and current loggged in user id,
+    // but when you about to modify a request this will different from the curren user id since original request is from some one else.to track that followong attributes comes
+    // below attribute is not going to be persistence on any where
+    @JsonProperty("currentuser_id")
+    private String currentUserId; // upmServices userId
+    @JsonProperty("currentuser_role")
+    private String currentUserRole;
     private String name;
     private String designation;
     //private String branch;

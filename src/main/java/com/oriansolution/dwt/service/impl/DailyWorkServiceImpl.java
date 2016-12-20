@@ -4,6 +4,7 @@ import com.oriansolution.dwt.dao.BranchDao;
 import com.oriansolution.dwt.dao.DailyWorkRequestDao;
 import com.oriansolution.dwt.dto.*;
 import com.oriansolution.dwt.exception.JobRequestNotFound;
+import com.oriansolution.dwt.exception.UserAndRoleNotFound;
 import com.oriansolution.dwt.model.*;
 import com.oriansolution.dwt.service.DailyWorkService;
 import com.oriansolution.dwt.utility.DateUtil;
@@ -244,6 +245,107 @@ public class DailyWorkServiceImpl implements DailyWorkService {
     public ArrayList<RequestSummaryDto> getRequestSummaryByBranch(String upmBranchId) throws Exception {
         List<WorkRequest> summary = requestDao.getRequestSummaryByBranch(upmBranchId);
         return generateSummaryDto(summary);
+    }
+
+
+
+    // --------------------older implementation ---------------------------------------------------------
+    private List<Comment> updateCommentsModel(List<CommentsDto> commentsDto,WorkRequest jobRequesModelObj) {
+        List<Comment> commentList = new ArrayList<Comment>();
+        for(CommentsDto commentdto: commentsDto) {
+            Comment comment= new Comment();
+            comment.setCommentId(commentdto.getId());
+            comment.setCommentedUsedId(commentdto.getCommentedUserUPMID());
+            comment.setComment(commentdto.getComment());
+            comment.setCreatedDate(new Date());
+            comment.setWorkRequest(jobRequesModelObj);// to support bidirectional link
+            commentList.add(comment);
+            // TODO::  Save Commented RequestorDetail - this needs to have the current logged in user
+        }
+        return commentList;
+    }
+
+    public WorkRequest generateModifiedWorkRequest(WorkRequest jobRequesModelObj,DailyWorkRequestDto jobRequestDto) throws Exception {
+
+        // modify the WorkRequest with data from DTO.Before do the update need to verify which fileds are going to modify
+        // how to edit the comments and how to dletet the comments.
+        // a) if the current logged user is equal to the requestor he can edit followings
+        //      1) description 2) close date 3) due date 4) title 5) his comments only
+        // b) if the logged in user is an assigned user
+        //        1) can edit his comments only
+        //        2) status
+        // c) any other he can add work notes and edit his comments
+                // 1) edit previous comment
+                // 2) add new comment
+        //
+        String currentUser = jobRequestDto.getCurrentUserId();
+        String currentUserRole = jobRequestDto.getCurrentUserRole();
+
+        if( currentUser !=null && currentUserRole!=null) {
+
+            if (currentUser.equals(jobRequesModelObj.getRequestor().getRequestorUpmServiceId())) {
+                // requestor is going to modify the request
+                jobRequesModelObj.setDelieveryMode(jobRequestDto.getDelieveryMode());
+                jobRequesModelObj.setDelieveryFormat(jobRequestDto.getDelieveryFormat());
+                jobRequesModelObj.setBusinessPurpose(jobRequestDto.getBusinessPurpose());
+                jobRequesModelObj.setDueDate(DateUtil.getDateInGivenFormat(jobRequestDto.getDueDate(), "dd/MM/yyyy"));
+                jobRequesModelObj.setAssignedUserUPMID(jobRequestDto.getAddignedUserUPMID()); // this should pick the current user's manager by the back end it self.
+                //user assignment should happen at backend for current users manager.
+                // status modification
+                jobRequesModelObj.setStatus(jobRequestDto.getStatus());
+                // EDIT Comments
+                jobRequesModelObj.setListOfComments(updateCommentsModel(jobRequestDto.getComments(), jobRequesModelObj));
+                // EDIT Contacts
+            /*
+            String businessPurpose = jobRequestDto.getBusinessPurpose();
+            if(!jobRequesModelObj.getBusinessPurpose().equals(businessPurpose)) {
+                jobRequesModelObj.setBusinessPurpose(businessPurpose);
+            }*/
+
+                System.out.println("requestor is going to modify the request");
+            } else if (currentUser.equals(jobRequesModelObj.getAssignedUserUPMID())) {
+                // assigned user is going to modiify the request
+                jobRequesModelObj.setAssignedUserUPMID(jobRequestDto.getAddignedUserUPMID());
+                jobRequesModelObj.setStatus(jobRequestDto.getStatus());
+                jobRequesModelObj.setListOfComments(updateCommentsModel(jobRequestDto.getComments(), jobRequesModelObj));
+                System.out.println("assigned user is going to modify the request");
+            } else if (currentUserRole.equals("MANAGER")) {
+
+                // he directly not involved with request but if he is a manager of
+                // 1) requestor 2) initiated department 3) some other department head he can change the assign status
+                // modify the comments
+                jobRequesModelObj.setAssignedUserUPMID(jobRequestDto.getAddignedUserUPMID());
+                jobRequesModelObj.setStatus(jobRequestDto.getStatus());
+                jobRequesModelObj.setListOfComments(updateCommentsModel(jobRequestDto.getComments(), jobRequesModelObj));
+
+                System.out.println("Manager user is going to modify the request");
+            } else {
+                jobRequesModelObj.setStatus(jobRequestDto.getStatus());
+                jobRequesModelObj.setListOfComments(updateCommentsModel(jobRequestDto.getComments(), jobRequesModelObj));
+                // he can only modif the comments of his and add new comments
+                System.out.println("Commentor user is going to modify the request");
+            }
+        } else {
+            throw new UserAndRoleNotFound("Current Logged in user's UserId/Role Not found");
+        }
+        return jobRequesModelObj;
+    }
+
+
+    @Override
+    public DailyWorkRequestDto modifyRequest(DailyWorkRequestDto jobRequestDto) throws Exception {
+        WorkRequest jobRequesModelObj = requestDao.getRequestById(jobRequestDto.getId());
+
+        if (jobRequesModelObj!=null) {
+            generateModifiedWorkRequest(jobRequesModelObj,jobRequestDto);
+            requestDao.updateRequest(jobRequesModelObj);
+
+            //jobRequestDto = getRequest(jobRequesModelObj.getId());
+        }else {
+            throw new JobRequestNotFound("Job request could not find under id :-"+jobRequestDto.getId());
+        }
+
+        return jobRequestDto;
     }
 
 

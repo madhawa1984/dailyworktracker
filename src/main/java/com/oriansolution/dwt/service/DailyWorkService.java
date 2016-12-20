@@ -14,4 +14,5 @@ public interface DailyWorkService {
     public DailyWorkRequestDto getRequest(long requestId) throws Exception;
     public ArrayList<RequestSummaryDto> getRequestSummary(String upmUserId) throws Exception;
     public ArrayList<RequestSummaryDto> getRequestSummaryByBranch(String upmBranchId) throws Exception;
+    public DailyWorkRequestDto modifyRequest(DailyWorkRequestDto request) throws Exception;
 }

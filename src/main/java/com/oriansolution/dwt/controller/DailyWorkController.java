@@ -24,9 +24,7 @@ public class DailyWorkController {
     private DailyWorkService dailworkServiceObj;
 
     @RequestMapping(value = "/dailyWork/{requestId}", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    DailyWorkRequestDto read(@PathVariable long requestId) throws Exception {
+    public @ResponseBody DailyWorkRequestDto read(@PathVariable long requestId) throws Exception {
 
         DailyWorkRequestDto workRequestDto = dailworkServiceObj.getRequest(requestId);
         return workRequestDto;
@@ -34,13 +32,17 @@ public class DailyWorkController {
     }
 
     @RequestMapping(value = "/request", method = RequestMethod.POST)
-    public
-    @ResponseBody
-    DailyWorkRequestDto create(@RequestBody DailyWorkRequestDto request) throws Exception {
+    public @ResponseBody DailyWorkRequestDto create(@RequestBody DailyWorkRequestDto request) throws Exception {
 
         DailyWorkRequestDto savedResult = dailworkServiceObj.publishRequest(request);
         return savedResult;
 
+    }
+
+    @RequestMapping(value="/request",method= RequestMethod.PUT)
+    public @ResponseBody DailyWorkRequestDto update(@RequestBody DailyWorkRequestDto request) throws Exception {
+        DailyWorkRequestDto updatedResult = dailworkServiceObj.modifyRequest(request);
+        return updatedResult;
     }
 
 

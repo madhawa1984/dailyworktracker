@@ -3,6 +3,7 @@ package com.oriansolution.dwt.controller;
 import com.oriansolution.dwt.exception.DwtBaseException;
 import com.oriansolution.dwt.exception.JoBSummaryNotFound;
 import com.oriansolution.dwt.exception.JobRequestNotFound;
+import com.oriansolution.dwt.exception.UserAndRoleNotFound;
 import com.oriansolution.dwt.utility.DWTError;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,7 @@ public class DwtExceptionController {
 
     @ResponseBody
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler({JobRequestNotFound.class,JoBSummaryNotFound.class})
+    @ExceptionHandler({JobRequestNotFound.class,JoBSummaryNotFound.class,UserAndRoleNotFound.class})
     public DWTError handleJobNotFound(DwtBaseException e) {
         e.printStackTrace();
         DWTError dwtError= new DWTError();
