@@ -86,7 +86,7 @@ public class DailyWorkServiceImpl implements DailyWorkService {
         newWorkRequest.setDueDate(DateUtil.getDateInGivenFormat(request.getDueDate(), "dd/MM/yyyy"));
         newWorkRequest.setBranch(branch);
 
-        newWorkRequest.setAssignedUserUPMID(request.getAddignedUserUPMID()); // UPF service Id
+        newWorkRequest.setAssignedUserUPMID(request.getAssignedUserUPMID()); // UPF service Id
         newWorkRequest.setInitiatedDepartment(request.getInitiatedDepartment());
         newWorkRequest.setDelieveryFormat(request.getDelieveryFormat());
         newWorkRequest.setDelieveryMode(request.getDelieveryMode());
@@ -166,7 +166,7 @@ public class DailyWorkServiceImpl implements DailyWorkService {
 
             wrkRequestDto.setComments(updateCommentsDto(wrkRequest));
             // ASSIGNED USER
-            wrkRequestDto.setAddignedUserUPMID(wrkRequest.getAssignedUserUPMID());
+            wrkRequestDto.setAssignedUserUPMID(wrkRequest.getAssignedUserUPMID());
             // ASSIGNED STATUS
             wrkRequestDto.setStatus(wrkRequest.getStatus());
             wrkRequestDto.setId(wrkRequest.getId());
@@ -289,7 +289,7 @@ public class DailyWorkServiceImpl implements DailyWorkService {
                 jobRequesModelObj.setDelieveryFormat(jobRequestDto.getDelieveryFormat());
                 jobRequesModelObj.setBusinessPurpose(jobRequestDto.getBusinessPurpose());
                 jobRequesModelObj.setDueDate(DateUtil.getDateInGivenFormat(jobRequestDto.getDueDate(), "dd/MM/yyyy"));
-                jobRequesModelObj.setAssignedUserUPMID(jobRequestDto.getAddignedUserUPMID()); // this should pick the current user's manager by the back end it self.
+                jobRequesModelObj.setAssignedUserUPMID(jobRequestDto.getAssignedUserUPMID()); // this should pick the current user's manager by the back end it self.
                 //user assignment should happen at backend for current users manager.
                 // status modification
                 jobRequesModelObj.setStatus(jobRequestDto.getStatus());
@@ -305,7 +305,7 @@ public class DailyWorkServiceImpl implements DailyWorkService {
                 System.out.println("requestor is going to modify the request");
             } else if (currentUser.equals(jobRequesModelObj.getAssignedUserUPMID())) {
                 // assigned user is going to modiify the request
-                jobRequesModelObj.setAssignedUserUPMID(jobRequestDto.getAddignedUserUPMID());
+                jobRequesModelObj.setAssignedUserUPMID(jobRequestDto.getAssignedUserUPMID());
                 jobRequesModelObj.setStatus(jobRequestDto.getStatus());
                 jobRequesModelObj.setListOfComments(updateCommentsModel(jobRequestDto.getComments(), jobRequesModelObj));
                 System.out.println("assigned user is going to modify the request");
@@ -314,7 +314,7 @@ public class DailyWorkServiceImpl implements DailyWorkService {
                 // he directly not involved with request but if he is a manager of
                 // 1) requestor 2) initiated department 3) some other department head he can change the assign status
                 // modify the comments
-                jobRequesModelObj.setAssignedUserUPMID(jobRequestDto.getAddignedUserUPMID());
+                jobRequesModelObj.setAssignedUserUPMID(jobRequestDto.getAssignedUserUPMID());
                 jobRequesModelObj.setStatus(jobRequestDto.getStatus());
                 jobRequesModelObj.setListOfComments(updateCommentsModel(jobRequestDto.getComments(), jobRequesModelObj));
 

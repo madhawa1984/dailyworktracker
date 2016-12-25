@@ -143,12 +143,12 @@ public class DailyWorkRequestDto {
         this.initiatedDepartment = initiatedDepartment;
     }
 
-    public String getAddignedUserUPMID() {
-        return addignedUserUPMID;
+    public String getAssignedUserUPMID() {
+        return assignedUserUPMID;
     }
 
-    public void setAddignedUserUPMID(String addignedUserUPMID) {
-        this.addignedUserUPMID = addignedUserUPMID;
+    public void setAssignedUserUPMID(String assignedUserUPMID) {
+        this.assignedUserUPMID = assignedUserUPMID;
     }
 
     public String getEmployeeId() {
@@ -236,7 +236,7 @@ public class DailyWorkRequestDto {
     private String frequency;
     @JsonProperty("request_type")
     private String requestType;
-    @JsonProperty("delievery_mode")
+    @JsonProperty("delivery_mode")
     private String delieveryMode;
     @JsonProperty("required_columns")
     private String requiredColumns;// text asre how to handle ,larger text velus into string
@@ -250,10 +250,12 @@ public class DailyWorkRequestDto {
     @JsonProperty("business_purpose")
     private String businessPurpose;
     private ArrayList<CommentsDto> comments; // necessary
-    @JsonProperty("initiated_department")
+    // @JsonProperty("initiated_department")
+    @JsonProperty("assignee_department")
     private String initiatedDepartment;
-    @JsonProperty("assigned_user_upmid")
-    private String addignedUserUPMID;
+    // @JsonProperty("assigned_user_upmid")
+    @JsonProperty("assignee") // AS PER TO MATCH WITH UI
+    private String assignedUserUPMID;
     private String status;
     // employee spacific data .may be able to put into another dto with employee
     @JsonProperty("employee_id")

@@ -1,5 +1,7 @@
 package com.oriansolution.dwt.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +14,7 @@ public class CommentsDto {
     private String modifieddDate;
     private String comment;// check how to support lenghty comment// this shoulbe an array List
     private String workRequestId; // attributes from relationships
+    @JsonProperty("submitter")
     private String commentedUserUPMID;
 
     public String getCommentedUserUPMID() {
