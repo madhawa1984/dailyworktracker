@@ -23,7 +23,7 @@ public class DailyWorkController {
     @Qualifier("DailyworkServiceBean")
     private DailyWorkService dailworkServiceObj;
 
-    @RequestMapping(value = "/dailyWork/{requestId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/request/{requestId}", method = RequestMethod.GET)
     public @ResponseBody DailyWorkRequestDto read(@PathVariable long requestId) throws Exception {
 
         DailyWorkRequestDto workRequestDto = dailworkServiceObj.getRequest(requestId);

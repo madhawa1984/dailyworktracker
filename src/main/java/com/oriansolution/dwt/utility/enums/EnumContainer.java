@@ -49,7 +49,7 @@ public class EnumContainer {
 
     public enum RequestTypes implements Serializable {
 
-        TYPEONE("TYPEONE",1,"TYPEONE"),TYPETWO("TYPETWO",2,"TYPETWO") ;
+        DETAILED("DETAILED",1,"Detailed"),SUMMARY("SUMMARY",2,"Summary") ;
 
         RequestTypes (String name,int value,String text) {
             this.name = name;
@@ -68,7 +68,7 @@ public class EnumContainer {
 
     public enum DelieveryFormat implements Serializable {
 
-        EXCELSHEET("EXCELSHEET",1,"Excel Sheet"),TYPETWO("EXECUTABLEQUERY",2,"Executable Query") ;
+        EXCELSHEET("EXCELSHEET",1,"Excel Sheet"),CSV("CSV",2,"Csv"),PDF("PDF",3,"PDF") ;
 
         DelieveryFormat (String name,int value,String text) {
             this.name = name;
@@ -87,7 +87,7 @@ public class EnumContainer {
 
     public enum Frequency implements Serializable {
 
-        DAILY("DAILY",1,"Daily"),WEEKLY("WEEKLY",2,"Weekly"),MONTHLY("MONTHLY",3,"Monthly"),YEARLY("YEARLY",4,"Yearly") ;
+        DAILY("DAILY",1,"Daily"),ADHOC("ADHOC",2,"ADHOC"),WEEKLY("WEEKLY",3,"Weekly"),MONTHLY("MONTHLY",3,"Monthly"),YEARLY("YEARLY",4,"Yearly") ;
 
         Frequency (String name,int value,String text) {
             this.name = name;

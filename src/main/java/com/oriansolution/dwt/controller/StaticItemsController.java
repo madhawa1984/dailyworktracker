@@ -1,7 +1,11 @@
 package com.oriansolution.dwt.controller;
 
+import com.oriansolution.dwt.dto.BranchDto;
 import com.oriansolution.dwt.dto.StaticItemsDto;
+import com.oriansolution.dwt.service.StaticItemService;
 import com.oriansolution.dwt.utility.enums.EnumContainer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +20,11 @@ import java.util.List;
  */
 @RestController
 public class StaticItemsController {
-    @RequestMapping(value="/getPriority",method= RequestMethod.GET)
+    @Qualifier("StaticItemsServiceBean")
+    @Autowired
+    private StaticItemService staticItemService;
+
+    @RequestMapping(value="/priority_list",method= RequestMethod.GET)
     public HashMap<String,List<StaticItemsDto>> getPriorityLevel() throws Exception {
         ArrayList<StaticItemsDto>  staticItems= new ArrayList<StaticItemsDto>();
         HashMap<String,List<StaticItemsDto>> staticItemsMap = new HashMap<String,List<StaticItemsDto>>();
@@ -29,14 +37,13 @@ public class StaticItemsController {
             item.setText(priority.getText());
             item.setValue(priority.getValue());
             staticItems.add(item);
-            System.out.println("________" + priority.getName() + "   " + priority.getText() + " .. " + priority.getValue());
         }
         staticItemsMap.put("priorityList", staticItems);
         return staticItemsMap;
 
     }
 
-    @RequestMapping(value="/getDesignations",method= RequestMethod.GET)
+    @RequestMapping(value="/designations_list",method= RequestMethod.GET)
     public HashMap<String,List<StaticItemsDto>> getDesignations() throws Exception {
         ArrayList<StaticItemsDto>  staticItems= new ArrayList<StaticItemsDto>();
         HashMap<String,List<StaticItemsDto>> staticItemsMap = new HashMap<String,List<StaticItemsDto>>();
@@ -57,7 +64,7 @@ public class StaticItemsController {
     }
 
 
-    @RequestMapping(value="/getRequestTypes",method= RequestMethod.GET)
+    @RequestMapping(value="/requestTypes_list",method= RequestMethod.GET)
     public HashMap<String,List<StaticItemsDto>> getRequestTypes() throws Exception {
         ArrayList<StaticItemsDto>  staticItems= new ArrayList<StaticItemsDto>();
         HashMap<String,List<StaticItemsDto>> staticItemsMap = new HashMap<String,List<StaticItemsDto>>();
@@ -78,7 +85,7 @@ public class StaticItemsController {
     }
 
 
-    @RequestMapping(value="/getDelieveryFormat",method= RequestMethod.GET)
+    @RequestMapping(value="/delievery_format",method= RequestMethod.GET)
     public HashMap<String,List<StaticItemsDto>> getDelieveryFormat() throws Exception {
         ArrayList<StaticItemsDto>  staticItems= new ArrayList<StaticItemsDto>();
         HashMap<String,List<StaticItemsDto>> staticItemsMap = new HashMap<String,List<StaticItemsDto>>();
@@ -99,7 +106,7 @@ public class StaticItemsController {
     }
 
 
-    @RequestMapping(value="/getFrequency",method= RequestMethod.GET)
+    @RequestMapping(value="/frequency_list",method= RequestMethod.GET)
     public HashMap<String,List<StaticItemsDto>> getFrequency() throws Exception {
         ArrayList<StaticItemsDto>  staticItems= new ArrayList<StaticItemsDto>();
         HashMap<String,List<StaticItemsDto>> staticItemsMap = new HashMap<String,List<StaticItemsDto>>();
@@ -119,11 +126,7 @@ public class StaticItemsController {
 
     }
 
-
-
-
-
-    @RequestMapping(value="/getDelieveryMode",method= RequestMethod.GET)
+    @RequestMapping(value="/delievery_mode",method= RequestMethod.GET)
     public HashMap<String,List<StaticItemsDto>> getDelieveryMode() throws Exception {
         ArrayList<StaticItemsDto>  staticItems= new ArrayList<StaticItemsDto>();
         HashMap<String,List<StaticItemsDto>> staticItemsMap = new HashMap<String,List<StaticItemsDto>>();
@@ -140,6 +143,14 @@ public class StaticItemsController {
         staticItemsMap.put("delieveryModeList", staticItems);
         return staticItemsMap;
 
+    }
+
+
+    @RequestMapping(value="/branches_list",method= RequestMethod.GET)
+    public HashMap<String,List<BranchDto>> getBranches() throws Exception {
+        HashMap<String,List<BranchDto>> staticItemsMap = new HashMap<String,List<BranchDto>>();
+        staticItemsMap.put("branchesList", staticItemService.getBranchList());
+        return staticItemsMap;
     }
 
 }

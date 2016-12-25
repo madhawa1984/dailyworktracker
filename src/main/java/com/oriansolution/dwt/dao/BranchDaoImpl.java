@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +19,29 @@ import java.util.List;
 public class BranchDaoImpl implements BranchDao {
     @Autowired
     SessionFactory sessionFactoryBean;
+
+    public List<Branch> getBranchList() {
+        Session session = null;
+        Branch branch = null;
+        List<Branch> branchList = new ArrayList<Branch>();
+
+        try {
+            session = sessionFactoryBean.openSession();
+            // session = sessionFactoryBean.getCurrentSession();
+            Query query = session.createQuery("from Branch");
+            branchList = query.list();
+
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            if(session!=null) {
+                session.close();
+            }
+            return branchList;
+        }
+
+    }
     @Override
     public Branch getBranchByUpfId(String upfServiceBranchId) {
         Session session = null;
