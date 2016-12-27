@@ -224,7 +224,7 @@ public class DailyWorkRequestDto {
     public void setCurrentUserRole(String currentUserRole) {
         this.currentUserRole = currentUserRole;
     }
-
+    // @JsonProperty("request_id")
     private long id;
     @JsonProperty("requested_date")
     private String requestedDate;

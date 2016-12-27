@@ -24,7 +24,7 @@ public class DateUtil {
 
 
 
-    // overloaded method
+   /* // overloaded method
     public static Date getDateInGivenFormat(Date dateObject,String formatString) {
         Date date = null;
         String dateString = null;
@@ -38,4 +38,35 @@ public class DateUtil {
         }
         return date;
     }
+*/
+    // overloaded method
+    public static String getDateInGivenFormat(Date dateObject,String formatString) {
+        Date date = null;
+        String dateString = null;
+        try {
+            final DateFormat sdf = new SimpleDateFormat(formatString, Locale.ENGLISH);
+            sdf.setTimeZone(TimeZone.getTimeZone("IST"));
+            dateString = sdf.format(dateObject);
+            // date = sdf.parse(dateString);
+        }catch(Exception e) {
+            date = null;
+        }
+        return dateString;
+    }
+
+    // overloaded method
+    public static Date getDateObjectInGivenFormat(Date dateObject,String formatString) {
+        Date date = null;
+        String dateString = null;
+        try {
+            final DateFormat sdf = new SimpleDateFormat(formatString, Locale.ENGLISH);
+            sdf.setTimeZone(TimeZone.getTimeZone("IST"));
+            dateString = sdf.format(dateObject);
+            date = sdf.parse(dateString);
+        }catch(Exception e) {
+            date = null;
+        }
+        return date;
+    }
+
 }

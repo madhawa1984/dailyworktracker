@@ -81,9 +81,9 @@ public class DailyWorkServiceImpl implements DailyWorkService {
         branch.setBranchName(branchDto.getBranchName());
         branch.setBranchLocation(branchDto.getBranchLocation());
         branch.setUpfServiceBranchId(branchDto.getBranchCode());
-        branch.setCreatedTime(DateUtil.getDateInGivenFormat(new Date().toString(),"dd/MM/yyyy")); // check this date
-        newWorkRequest.setCreatedDate(DateUtil.getDateInGivenFormat(new Date(), "dd/MM/yyyy"));
-        newWorkRequest.setDueDate(DateUtil.getDateInGivenFormat(request.getDueDate(), "dd/MM/yyyy"));
+        branch.setCreatedTime(DateUtil.getDateInGivenFormat(new Date().toString(),"MM/dd/yyyy")); // check this date
+        newWorkRequest.setCreatedDate(DateUtil.getDateObjectInGivenFormat(new Date(), "MM/dd/yyyy"));
+        newWorkRequest.setDueDate(DateUtil.getDateInGivenFormat(request.getDueDate(), "MM/dd/yyyy"));
         newWorkRequest.setBranch(branch);
 
         newWorkRequest.setAssignedUserUPMID(request.getAssignedUserUPMID()); // UPF service Id
@@ -126,11 +126,11 @@ public class DailyWorkServiceImpl implements DailyWorkService {
             cmtDto.setComment(cm.getComment());
             cmtDto.setCommentedUserUPMID(cm.getCommentedUsedId());
             if (cm.getCreatedDate() != null) {
-                cmtDto.setCreatedDate(cm.getCreatedDate().toString()); // check this conversion is oks
+                cmtDto.setCreatedDate(DateUtil.getDateInGivenFormat(cm.getCreatedDate(), "MM/dd/yyyy")); // check this conversion is oks
             }
 
             if (cm.getModifieddDate() != null) {
-                cmtDto.setModifieddDate(cm.getModifieddDate().toString());
+                cmtDto.setModifieddDate(DateUtil.getDateInGivenFormat(cm.getModifieddDate(), "MM/dd/yyyy"));
             }
             cmtDto.setWorkRequestId(Long.toString(wrkRequest.getId()));
             commentsDto.add(cmtDto);
@@ -172,16 +172,17 @@ public class DailyWorkServiceImpl implements DailyWorkService {
             wrkRequestDto.setId(wrkRequest.getId());
 
             if (wrkRequest.getCreatedDate() != null) {
-                wrkRequestDto.setRequestedDate(wrkRequest.getCreatedDate().toString());//NULL How to handle ENTITY level set default date
+                //DateUtil.getDateInGivenFormat(jobReq.getDueDate(),"dd/MM/yyyy").toString() // 05/18/2016
+                wrkRequestDto.setRequestedDate(DateUtil.getDateInGivenFormat(wrkRequest.getCreatedDate(),"MM/dd/yyyy"));//NULL How to handle ENTITY level set default date
             }
             if (wrkRequest.getDueDate() != null) {
-                wrkRequestDto.setDueDate(wrkRequest.getDueDate().toString());
+                wrkRequestDto.setDueDate(DateUtil.getDateInGivenFormat(wrkRequest.getDueDate(),"MM/dd/yyyy"));
             }
             if (wrkRequest.getModifiedDate() != null) {
-                wrkRequestDto.setModifiedDate(wrkRequest.getModifiedDate().toString());
+                wrkRequestDto.setModifiedDate(DateUtil.getDateInGivenFormat(wrkRequest.getModifiedDate(), "MM/dd/yyyy"));
             }
             if (wrkRequest.getClosedDate() != null) {
-                wrkRequestDto.setClosedDate(wrkRequest.getClosedDate().toString());
+                wrkRequestDto.setClosedDate(DateUtil.getDateInGivenFormat(wrkRequest.getClosedDate(), "MM/dd/yyyy"));
             }
             wrkRequestDto.setDelieveryFormat(wrkRequest.getDelieveryFormat());
             wrkRequestDto.setFrequency(wrkRequest.getFrequency());
@@ -221,11 +222,11 @@ public class DailyWorkServiceImpl implements DailyWorkService {
         RequestSummaryDto summaryDto = new RequestSummaryDto();
         for(WorkRequest jobReq:summary) {
             summaryDto.setBusinessPurpose(jobReq.getBusinessPurpose());
-            summaryDto.setDueDate(DateUtil.getDateInGivenFormat(jobReq.getDueDate(),"dd/MM/yyyy").toString());
+            summaryDto.setDueDate(DateUtil.getDateInGivenFormat(jobReq.getDueDate(), "MM/dd/yyyy"));
             summaryDto.setPriority(jobReq.getPriority());
             summaryDto.setRequestedBy(jobReq.getRequestor().getFirstName());
             summaryDto.setRequestedDate(DateUtil.getDateInGivenFormat(jobReq.getCreatedDate(),
-                    "dd/MM/yyyy").toString());
+                    "MM/dd/yyyy"));
             summaryDto.setRequestId(Long.toString(jobReq.getId()));
             summaryDto.setStatus(jobReq.getStatus());
             summaryDto.setTittle(jobReq.getReportTitle());
@@ -288,7 +289,7 @@ public class DailyWorkServiceImpl implements DailyWorkService {
                 jobRequesModelObj.setDelieveryMode(jobRequestDto.getDelieveryMode());
                 jobRequesModelObj.setDelieveryFormat(jobRequestDto.getDelieveryFormat());
                 jobRequesModelObj.setBusinessPurpose(jobRequestDto.getBusinessPurpose());
-                jobRequesModelObj.setDueDate(DateUtil.getDateInGivenFormat(jobRequestDto.getDueDate(), "dd/MM/yyyy"));
+                jobRequesModelObj.setDueDate(DateUtil.getDateInGivenFormat(jobRequestDto.getDueDate(), "MM/dd/yyyy"));
                 jobRequesModelObj.setAssignedUserUPMID(jobRequestDto.getAssignedUserUPMID()); // this should pick the current user's manager by the back end it self.
                 //user assignment should happen at backend for current users manager.
                 // status modification
