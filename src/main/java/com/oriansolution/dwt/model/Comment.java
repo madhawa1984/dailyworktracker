@@ -22,7 +22,7 @@ public class Comment implements Serializable {
     private Date createdDate;
     @Column(name="MODIFIED_DATE")
     private Date modifieddDate;
-    @Column(name="COMMENT")
+    @Column(name="COMMENT",length = 8000)
     private String comment;// check how to support lenghty comment// this shoulbe an array List
     @Column(name="COMMENTED_USERID")
     private String commentedUsedId;

@@ -8,6 +8,7 @@ import com.oriansolution.dwt.exception.UserAndRoleNotFound;
 import com.oriansolution.dwt.model.*;
 import com.oriansolution.dwt.service.DailyWorkService;
 import com.oriansolution.dwt.utility.DateUtil;
+import com.oriansolution.dwt.utility.enums.EnumContainer;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -198,7 +199,8 @@ public class DailyWorkServiceImpl implements DailyWorkService {
             wrkRequestDto.setRequiredColumns(wrkRequest.getRequiredColumns());
             wrkRequestDto.setContactDetails(updateContactDetailsDto(wrkRequest));
             wrkRequestDto.setStatus(wrkRequest.getStatus());
-            wrkRequestDto.setPriority(wrkRequest.getPriority());
+            wrkRequestDto.setPriority(wrkRequest.getPriority()); // as requested by chamil Modify the retun type to the name not
+            // the numeric value
         }
 
         return wrkRequestDto;
@@ -219,11 +221,12 @@ public class DailyWorkServiceImpl implements DailyWorkService {
 
     public ArrayList<RequestSummaryDto> generateSummaryDto(List<WorkRequest> summary) throws Exception {
         ArrayList<RequestSummaryDto> summaryDtoList = new ArrayList<RequestSummaryDto>();
-        RequestSummaryDto summaryDto = new RequestSummaryDto();
+        RequestSummaryDto summaryDto = null;
         for(WorkRequest jobReq:summary) {
+            summaryDto = new RequestSummaryDto();
             summaryDto.setBusinessPurpose(jobReq.getBusinessPurpose());
             summaryDto.setDueDate(DateUtil.getDateInGivenFormat(jobReq.getDueDate(), "MM/dd/yyyy"));
-            summaryDto.setPriority(jobReq.getPriority());
+            summaryDto.setPriority(EnumContainer.Priority.getTextByIntValue(jobReq.getPriority()).getText());
             summaryDto.setRequestedBy(jobReq.getRequestor().getFirstName());
             summaryDto.setRequestedDate(DateUtil.getDateInGivenFormat(jobReq.getCreatedDate(),
                     "MM/dd/yyyy"));

@@ -105,7 +105,8 @@ public class DailyWorkRequestDaoImpl implements DailyWorkRequestDao {
 
         try {
             session = this.sessionFactoryBean.openSession();
-            org.hibernate.query.Query query = session.createQuery("from WorkRequest A where  A.requestor.requestorUpmServiceId=:id");
+            // org.hibernate.query.Query query = session.createQuery("from WorkRequest A where  A.requestor.requestorUpmServiceId=:id");
+            org.hibernate.query.Query query = session.createQuery("from WorkRequest A where  A.assignedUserUPMID=:id");
             query.setParameter("id", upmUserId);
             summary = query.list();
             if (summary.isEmpty()) {

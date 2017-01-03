@@ -21,6 +21,26 @@ public class EnumContainer {
         public int getValue() { return value; }
         public String getText() { return text; }
 
+        public static Priority getTextByIntValue(String value) {
+            Priority returnPriority = IMPORTANT;
+            switch(value) {
+                case "1":
+                    returnPriority = IMEDIATE;
+                    break;
+                case "2":
+                    returnPriority = URGENT;
+                    break;
+                case "3":
+                    returnPriority = IMPORTANT;
+                    break;
+                default:
+                    returnPriority = IMPORTANT;
+                    break;
+
+            }
+            return returnPriority;
+        }
+
         private final String name;
         private final int value;
         private final String text;

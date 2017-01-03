@@ -42,6 +42,8 @@ public class WorkRequest implements Serializable {
     @Column(name="CLOSED_DATE")
     private Date closedDate;
     @Column(name="BUSINESS_PURPOSE")
+    @Lob
+    @Basic
     private String businessPurpose;
     @Column(name="REPORT_TITLE")
     private String reportTitle;
