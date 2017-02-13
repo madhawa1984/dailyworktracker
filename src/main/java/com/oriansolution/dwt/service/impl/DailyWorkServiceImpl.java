@@ -246,6 +246,20 @@ public class DailyWorkServiceImpl implements DailyWorkService {
     }
 
     @Override
+    public ArrayList<RequestSummaryDto> getRequestSummaryByInitiator(String upmUserId) throws Exception {
+        List<WorkRequest> summary = requestDao.getRequestSummaryByInitiator(upmUserId);
+        return generateSummaryDto(summary);
+    }
+
+    @Override
+    public ArrayList<RequestSummaryDto> getRequestSummaryById(long requestId) throws Exception {
+        List<WorkRequest> summary = requestDao.getRequestSummaryById(requestId);
+        return generateSummaryDto(summary);
+       /* List<WorkRequest> summary = requestDao.getRequestSummaryById(requestId);
+        return generateSummaryDto(summary);*/
+    }
+
+    @Override
     public ArrayList<RequestSummaryDto> getRequestSummaryByBranch(String upmBranchId) throws Exception {
         List<WorkRequest> summary = requestDao.getRequestSummaryByBranch(upmBranchId);
         return generateSummaryDto(summary);

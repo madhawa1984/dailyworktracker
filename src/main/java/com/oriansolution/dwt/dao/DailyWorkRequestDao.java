@@ -14,6 +14,8 @@ public interface DailyWorkRequestDao {
     // public WorkRequest updateRequest(WorkRequest request);
     public void updateRequest(WorkRequest request);
     public WorkRequest getRequestById(long requestId) throws Exception;
+    public List<WorkRequest> getRequestSummaryById(long requestId) throws Exception;
     public List<WorkRequest> getRequestSummary(String upmUserId) throws Exception;
+    public List<WorkRequest> getRequestSummaryByInitiator(String upmUserId) throws Exception;
     public List<WorkRequest> getRequestSummaryByBranch(String branchId) throws Exception;
 }

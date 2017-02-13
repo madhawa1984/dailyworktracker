@@ -143,4 +143,25 @@ public class EnumContainer {
         private final String text;
     }
 
+    public enum Status implements Serializable {
+
+        CREATED("CREATED",1,"CREATED"),PENDINGAPPROVAL("PENDINGAPPROVAL",2,"PENDINGAPPROVAL"),APPROVED("APPROVED",3,"APPROVED"),
+        REJECTED("REJECTED",4,"REJECTED"),ASSIGNED("ASSIGNED",5,"ASSIGNED"), WORKINPROGRESS("WORKINPROGRESS",6,"WORKINPROGRESS"),
+        PENDINGINFO("PENDINGINFO",7,"PENDINGINFO"),COMPLETED("COMPLETED",8,"COMPLETED");
+
+        Status (String name,int value,String text) {
+            this.name = name;
+            this.value = value;
+            this.text = text;
+        }
+        public String getName() { return name; }
+        public int getValue() { return value; }
+        public String getText() { return text; }
+
+        private final String name;
+        private final int value;
+        private final String text;
+
+    }
+
 }

@@ -19,6 +19,7 @@ import java.util.List;
 public class DailyWorkRequestDaoImpl implements DailyWorkRequestDao {
     @Autowired
     SessionFactory sessionFactoryBean;
+
     public WorkRequest getRequestById(long requestId) throws Exception {
         Session session = null;
         WorkRequest request = null;
@@ -49,6 +50,7 @@ public class DailyWorkRequestDaoImpl implements DailyWorkRequestDao {
 
         return request;
     }
+
 
     // public WorkRequest createRequest(WorkRequest request) {
     public void createRequest(WorkRequest request) {
@@ -107,6 +109,64 @@ public class DailyWorkRequestDaoImpl implements DailyWorkRequestDao {
             session = this.sessionFactoryBean.openSession();
             // org.hibernate.query.Query query = session.createQuery("from WorkRequest A where  A.requestor.requestorUpmServiceId=:id");
             org.hibernate.query.Query query = session.createQuery("from WorkRequest A where  A.assignedUserUPMID=:id");
+            query.setParameter("id", upmUserId);
+            summary = query.list();
+            if (summary.isEmpty()) {
+                throw new JoBSummaryNotFound("Job Summary Not Found for the User");
+            }
+
+        }catch(Exception e) {
+            e.printStackTrace();
+            throw new Exception("DWT Error Occured:"+e.getMessage(),e);
+        }
+        finally {
+            if(session!=null) {
+                session.close();
+            }
+
+        }
+
+        return summary;
+    }
+
+
+    @Override
+    public List<WorkRequest> getRequestSummaryById(long requestId) throws Exception {
+
+        List<WorkRequest> summary = null;
+        Session session = null;
+        try {
+            session = this.sessionFactoryBean.openSession();
+            // org.hibernate.query.Query query = session.createQuery("from WorkRequest A where  A.requestor.requestorUpmServiceId=:id");
+            org.hibernate.query.Query query = session.createQuery("from WorkRequest A where  A.id=:id");
+            query.setParameter("id", requestId);
+            summary = query.list();
+            if (summary.isEmpty()) {
+                throw new JoBSummaryNotFound("Job Summary Not Found for the User");
+            }
+
+        }catch(Exception e) {
+            e.printStackTrace();
+            throw new Exception("DWT Error Occured:"+e.getMessage(),e);
+        }
+        finally {
+            if(session!=null) {
+                session.close();
+            }
+
+        }
+        return summary;
+    }
+
+    @Override
+    public List<WorkRequest> getRequestSummaryByInitiator(String upmUserId) throws Exception {
+        List<WorkRequest> summary = null;
+        Session session = null;
+
+        try {
+            session = this.sessionFactoryBean.openSession();
+            // org.hibernate.query.Query query = session.createQuery("from WorkRequest A where  A.requestor.requestorUpmServiceId=:id");
+            org.hibernate.query.Query query = session.createQuery("from WorkRequest A where  A.requestor.requestorUpmServiceId=:id");
             query.setParameter("id", upmUserId);
             summary = query.list();
             if (summary.isEmpty()) {

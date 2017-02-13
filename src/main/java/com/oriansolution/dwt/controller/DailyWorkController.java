@@ -54,6 +54,23 @@ public class DailyWorkController {
 
     }
 
+    @RequestMapping(value = "/users/{userId}/requestSummaryByInitiator", method = RequestMethod.GET)
+    public ArrayList<RequestSummaryDto> getSummaryByInitiator(@PathVariable String userId) throws Exception {
+        ArrayList<RequestSummaryDto> summaryList = null;
+        summaryList = dailworkServiceObj.getRequestSummaryByInitiator(userId);
+        return summaryList;
+
+    }
+
+
+    @RequestMapping(value = "/users/{requestId}/requestSummaryById", method = RequestMethod.GET)
+    public ArrayList<RequestSummaryDto> getSummaryById(@PathVariable long requestId) throws Exception {
+        ArrayList<RequestSummaryDto> summaryDto = null;
+        summaryDto = dailworkServiceObj.getRequestSummaryById(requestId);
+        return summaryDto;
+
+    }
+
     @RequestMapping(value = "/branch/{branchId}/requestSummary", method = RequestMethod.GET)
     public ArrayList<RequestSummaryDto> getSummaryByBranch(@PathVariable String branchId) throws Exception {
         ArrayList<RequestSummaryDto> summaryList = null;

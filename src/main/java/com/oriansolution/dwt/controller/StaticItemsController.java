@@ -153,6 +153,24 @@ public class StaticItemsController {
         return staticItemsMap;
     }
 
+    @RequestMapping(value="/status_list",method= RequestMethod.GET)
+    public HashMap<String,List<StaticItemsDto>> getStatuslist() throws Exception {
+        HashMap<String,List<StaticItemsDto>> staticItemsMap = new HashMap<String,List<StaticItemsDto>>();
+        ArrayList<StaticItemsDto>  staticItems= new ArrayList<StaticItemsDto>();
+
+        StaticItemsDto item = null;
+        for (EnumContainer.Status type : EnumContainer.Status.values()) {
+            item = new StaticItemsDto();
+            item.setName(type.getName());
+            item.setText(type.getText());
+            item.setValue(type.getValue());
+            staticItems.add(item);
+
+        }
+        staticItemsMap.put("statusList", staticItems);
+        return staticItemsMap;
+    }
+
 }
 
 
