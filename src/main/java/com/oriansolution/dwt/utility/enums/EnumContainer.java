@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class EnumContainer {
 
     public enum Priority implements Serializable {
-        IMEDIATE("IMEDIATE",1,"Imediate"),URGENT("URGENT",2,"Urgent"),IMPORTANT("IMPORTANT",3,"Important");
+        IMEDIATE("Imediate",1,"Imediate"),IMPORTANT("Important",2,"Important");
         Priority (String name,int value,String text) {
             this.name = name;
             this.value = value;
@@ -28,9 +28,6 @@ public class EnumContainer {
                     returnPriority = IMEDIATE;
                     break;
                 case "2":
-                    returnPriority = URGENT;
-                    break;
-                case "3":
                     returnPriority = IMPORTANT;
                     break;
                 default:
@@ -48,9 +45,9 @@ public class EnumContainer {
 
     public enum Designations implements Serializable {
 
-        CEO("CEO",1,"Chief Executive Officer"), CFO("CFO",2,"Chief financial Officer"),GENERALMANAGERMANAGER("MANAGER",3,"Manager"),
-        REGIONALMANAGER("REGIONALMANAGER",4,"Regional Manager"),BRANHCMANAGER("BRANCHMANAGER",5,"Branch Manager"),
-        BRANCHOFFICER("BRANCHOFFICER",6,"Branch Officer"),OPERATOR("OPERATOR",7,"Operator");
+        CEO("Chief Executive Officer",1,"Chief Executive Officer"), CFO("Chief financial Officer",2,"Chief financial Officer"),GENERALMANAGERMANAGER("Manager",3,"Manager"),
+        REGIONALMANAGER("Regional Manager",4,"Regional Manager"),BRANHCMANAGER("Branch Manager",5,"Branch Manager"),
+        BRANCHOFFICER("Branch Officer",6,"Branch Officer"),OPERATOR("Operator",7,"Operator");
 
         Designations (String name,int value,String text) {
             this.name = name;
@@ -69,7 +66,7 @@ public class EnumContainer {
 
     public enum RequestTypes implements Serializable {
 
-        DETAILED("DETAILED",1,"Detailed"),SUMMARY("SUMMARY",2,"Summary") ;
+        DETAILED("Detailed",1,"Detailed"),SUMMARY("Summary",2,"Summary") ;
 
         RequestTypes (String name,int value,String text) {
             this.name = name;
@@ -88,7 +85,7 @@ public class EnumContainer {
 
     public enum DelieveryFormat implements Serializable {
 
-        EXCELSHEET("EXCELSHEET",1,"Excel Sheet"),CSV("CSV",2,"Csv"),PDF("PDF",3,"PDF") ;
+        EXCELSHEET("Excel Sheet",1,"Excel Sheet"),CSV("CSV",2,"CSV"),PDF("PDF",3,"PDF") ;
 
         DelieveryFormat (String name,int value,String text) {
             this.name = name;
@@ -107,7 +104,7 @@ public class EnumContainer {
 
     public enum Frequency implements Serializable {
 
-        DAILY("DAILY",1,"Daily"),ADHOC("ADHOC",2,"ADHOC"),WEEKLY("WEEKLY",3,"Weekly"),MONTHLY("MONTHLY",3,"Monthly"),YEARLY("YEARLY",4,"Yearly") ;
+        DAILY("Daily",1,"Daily"),ADHOC("Adhoc",2,"Adhoc"),WEEKLY("Weekly",3,"Weekly"),MONTHLY("Monthly",3,"Monthly"),QUARTERLY("Quarterly",4,"Quarterly"),YEARLY("Yearly",5,"Yearly") ;
 
         Frequency (String name,int value,String text) {
             this.name = name;

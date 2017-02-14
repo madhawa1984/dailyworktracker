@@ -38,7 +38,7 @@ public class StaticItemsController {
             item.setValue(priority.getValue());
             staticItems.add(item);
         }
-        staticItemsMap.put("priorityList", staticItems);
+        staticItemsMap.put("response", staticItems);
         return staticItemsMap;
 
     }
@@ -58,7 +58,7 @@ public class StaticItemsController {
             staticItems.add(item);
 
         }
-        staticItemsMap.put("designationList", staticItems);
+        staticItemsMap.put("response", staticItems);
         return staticItemsMap;
 
     }
@@ -79,7 +79,7 @@ public class StaticItemsController {
             staticItems.add(item);
 
         }
-        staticItemsMap.put("requestTypeList", staticItems);
+        staticItemsMap.put("response", staticItems);
         return staticItemsMap;
 
     }
@@ -92,7 +92,7 @@ public class StaticItemsController {
 
         //return Arrays.asList(EnumContainer.Priority.values());
         StaticItemsDto item = null;
-        for (EnumContainer.RequestTypes type : EnumContainer.RequestTypes.values()) {
+        for (EnumContainer.DelieveryFormat type : EnumContainer.DelieveryFormat.values()) {
             item = new StaticItemsDto();
             item.setName(type.getName());
             item.setText(type.getText());
@@ -100,7 +100,7 @@ public class StaticItemsController {
             staticItems.add(item);
 
         }
-        staticItemsMap.put("delieveryFormatList", staticItems);
+        staticItemsMap.put("response", staticItems);
         return staticItemsMap;
 
     }
@@ -121,7 +121,7 @@ public class StaticItemsController {
             staticItems.add(item);
 
         }
-        staticItemsMap.put("frequencyList", staticItems);
+        staticItemsMap.put("response", staticItems);
         return staticItemsMap;
 
     }
@@ -140,7 +140,7 @@ public class StaticItemsController {
             staticItems.add(item);
 
         }
-        staticItemsMap.put("delieveryModeList", staticItems);
+        staticItemsMap.put("response", staticItems);
         return staticItemsMap;
 
     }
@@ -149,7 +149,7 @@ public class StaticItemsController {
     @RequestMapping(value="/branches_list",method= RequestMethod.GET)
     public HashMap<String,List<BranchDto>> getBranches() throws Exception {
         HashMap<String,List<BranchDto>> staticItemsMap = new HashMap<String,List<BranchDto>>();
-        staticItemsMap.put("branchesList", staticItemService.getBranchList());
+        staticItemsMap.put("response", staticItemService.getBranchList());
         return staticItemsMap;
     }
 
@@ -168,6 +168,7 @@ public class StaticItemsController {
 
         }
         staticItemsMap.put("statusList", staticItems);
+
         return staticItemsMap;
     }
 

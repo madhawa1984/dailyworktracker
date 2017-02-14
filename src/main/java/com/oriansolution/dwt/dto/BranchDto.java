@@ -7,11 +7,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class BranchDto {
     private long id;
-    @JsonProperty("branch_code")
+    @JsonProperty("value")
     private String branchCode;
-    @JsonProperty("branch_name")
+    @JsonProperty("name")
     private String branchName;
-    @JsonProperty("branch_location")
+    @JsonProperty("text")
     private String branchLocation;
 
     public String getBranchLocation() {
