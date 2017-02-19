@@ -142,9 +142,9 @@ public class EnumContainer {
 
     public enum Status implements Serializable {
 
-        CREATED("CREATED",1,"CREATED"),PENDINGAPPROVAL("PENDINGAPPROVAL",2,"PENDINGAPPROVAL"),APPROVED("APPROVED",3,"APPROVED"),
-        REJECTED("REJECTED",4,"REJECTED"),ASSIGNED("ASSIGNED",5,"ASSIGNED"), WORKINPROGRESS("WORKINPROGRESS",6,"WORKINPROGRESS"),
-        PENDINGINFO("PENDINGINFO",7,"PENDINGINFO"),COMPLETED("COMPLETED",8,"COMPLETED");
+        CREATED("Created",1,"Created"),PENDINGAPPROVAL("Pending Approval",2,"Pending Approval"),APPROVED("Approved",3,"Approved"),
+        REJECTED("Rejected",4,"Rejected"),ASSIGNED("Assigned",5,"Assigned"), WORKINPROGRESS("Work inprogress",6,"Work inprogress"),
+        PENDINGINFO("Pending Info",7,"Pending Info"),COMPLETED("Completed",8,"Completed");
 
         Status (String name,int value,String text) {
             this.name = name;

@@ -167,7 +167,7 @@ public class StaticItemsController {
             staticItems.add(item);
 
         }
-        staticItemsMap.put("statusList", staticItems);
+        staticItemsMap.put("response", staticItems);
 
         return staticItemsMap;
     }
