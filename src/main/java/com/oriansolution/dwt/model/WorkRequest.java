@@ -55,8 +55,17 @@ public class WorkRequest implements Serializable {
     private String filterCritetia;
     @Column(name="PRIORITY")
     private String priority;
+    @Column(name="REQUEST_TYPE")
+    private String request_type;
 
 
+    public String getRequest_type() {
+        return request_type;
+    }
+
+    public void setRequest_type(String request_type) {
+        this.request_type = request_type;
+    }
 
     public String getPriority() {
         return priority;

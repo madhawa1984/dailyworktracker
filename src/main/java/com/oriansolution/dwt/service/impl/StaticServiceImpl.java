@@ -22,10 +22,11 @@ public class StaticServiceImpl implements StaticItemService {
         List<BranchDto> branchListDto = new ArrayList<BranchDto>();
         for(Branch branch:branchDao.getBranchList()){
             BranchDto branchDto = new BranchDto();
+            branchDto.setId(branch.getId());
             branchDto.setBranchCode(branch.getUpfServiceBranchId());
             branchDto.setBranchName(branch.getBranchName());
             branchDto.setBranchLocation(branch.getBranchLocation());
-            branchDto.setId(branch.getId());
+            //branchDto.setId(branch.getId());
             branchListDto.add( branchDto);
         }
         return branchListDto;

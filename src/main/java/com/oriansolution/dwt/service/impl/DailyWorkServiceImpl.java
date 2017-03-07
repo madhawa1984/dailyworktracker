@@ -99,7 +99,7 @@ public class DailyWorkServiceImpl implements DailyWorkService {
         newWorkRequest.setStatus(request.getStatus());
         newWorkRequest.setDelieveryMode(request.getDelieveryMode());
         newWorkRequest.setPriority(request.getPriority());
-
+        newWorkRequest.setRequest_type(request.getRequestType());
         return newWorkRequest;
     }
 
@@ -199,7 +199,11 @@ public class DailyWorkServiceImpl implements DailyWorkService {
             wrkRequestDto.setRequiredColumns(wrkRequest.getRequiredColumns());
             wrkRequestDto.setContactDetails(updateContactDetailsDto(wrkRequest));
             wrkRequestDto.setStatus(wrkRequest.getStatus());
-            wrkRequestDto.setPriority(wrkRequest.getPriority()); // as requested by chamil Modify the retun type to the name not
+            wrkRequestDto.setPriority(wrkRequest.getPriority());
+            wrkRequestDto.setRequestType(wrkRequest.getRequest_type());
+
+
+            // as requested by chamil Modify the retun type to the name not
             // the numeric value
         }
 

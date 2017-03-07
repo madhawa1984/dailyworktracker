@@ -147,9 +147,19 @@ public class StaticItemsController {
 
 
     @RequestMapping(value="/branches_list",method= RequestMethod.GET)
-    public HashMap<String,List<BranchDto>> getBranches() throws Exception {
-        HashMap<String,List<BranchDto>> staticItemsMap = new HashMap<String,List<BranchDto>>();
-        staticItemsMap.put("response", staticItemService.getBranchList());
+    public HashMap<String,List<StaticItemsDto>> getBranches() throws Exception {
+        HashMap<String,List<StaticItemsDto>> staticItemsMap = new HashMap<String,List<StaticItemsDto>>();
+        ArrayList<StaticItemsDto>  staticItems= new ArrayList<StaticItemsDto>();
+
+        StaticItemsDto item = null;
+        for(BranchDto branchDto : staticItemService.getBranchList()){
+            item = new StaticItemsDto();
+            item.setName(branchDto.getBranchName());
+            item.setText(branchDto.getBranchName());
+            item.setValue((int) branchDto.getId());
+            staticItems.add(item);
+        }
+        staticItemsMap.put("response", staticItems);
         return staticItemsMap;
     }
 

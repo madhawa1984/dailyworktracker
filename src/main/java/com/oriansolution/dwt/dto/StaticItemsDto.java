@@ -5,7 +5,7 @@ package com.oriansolution.dwt.dto;
  */
 public class StaticItemsDto {
     private String name;
-    private int value;
+    private long value;
 
     public String getText() {
         return text;
@@ -15,7 +15,7 @@ public class StaticItemsDto {
         this.text = text;
     }
 
-    public int getValue() {
+    public long getValue() {
         return value;
     }
 
