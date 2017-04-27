@@ -31,6 +31,7 @@ public class DailyWorkController {
 
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/request", method = RequestMethod.POST)
     public @ResponseBody DailyWorkRequestDto create(@RequestBody DailyWorkRequestDto request) throws Exception {
 
@@ -39,6 +40,7 @@ public class DailyWorkController {
 
     }
 
+    @CrossOrigin
     @RequestMapping(value="/request",method= RequestMethod.PUT)
     public @ResponseBody DailyWorkRequestDto update(@RequestBody DailyWorkRequestDto request) throws Exception {
         DailyWorkRequestDto updatedResult = dailworkServiceObj.modifyRequest(request);
